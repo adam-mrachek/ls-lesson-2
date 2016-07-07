@@ -1,9 +1,13 @@
+# Import messages configuration file.
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
 def prompt(message)
   puts "=> #{message}"
 end
 
 def valid_number?(num)
-  num.to_i() != 0
+  num.to_i.to_s == num
 end
 
 def operation_to_message(op)
@@ -19,14 +23,14 @@ def operation_to_message(op)
   end
 end
 
-prompt "Welcome to Calculator! Please enter your name:"
+prompt MESSAGES['welcome']
 
 name = ''
 loop do
   name = gets.chomp
 
   if name.empty?
-    prompt "Make sure to use a valid name."
+    prompt MESSAGES['valid_name']
   else
     break
   end
@@ -39,24 +43,24 @@ loop do # main loop
   number2 = ''
 
   loop do
-    prompt "What is the first number?"
+    prompt MESSAGES['first_number']
     number1 = gets.chomp
 
     if valid_number?(number1)
       break
     else
-      prompt("Hmmm...that doesn't look like a valid number.")
+      prompt MESSAGES['valid_number']
     end
   end
 
   loop do
-    prompt "What is the second number?"
+    prompt MESSAGES['second_number']
     number2 = gets.chomp
 
     if valid_number?(number2)
       break
     else
-      prompt "Hmmm...that doesn't look like a valid number."
+      prompt MESSAGES['valid_number']
     end
   end
 
@@ -96,9 +100,9 @@ loop do # main loop
 
   prompt "The result is #{result}"
 
-  prompt "Do you want to perform another calculation? (Y to calculate again)"
+  prompt MESSAGES['another_calculation']
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
 end
 
-prompt "Thank you for using calculator. Good bye!"
+prompt MESSAGES['thank_you']
