@@ -28,11 +28,11 @@ loop do
 
   apr = ''
   loop do
-    prompt "Next, enter the Annual Percentage Rate (APR) for your loan:"
+    prompt "Enter the Annual Percentage Rate (APR) for your loan:"
     prompt "If your rate is 5%, enter 5. If your rate is 2.5%, enter 2.5."
-    apr = gets.chomp.delete('%').to_f
+    apr = gets.chomp.delete('%,').to_f
 
-    if valid_number?(apr)
+    if valid_number?(apr) && apr <= 100
       break
     else
       prompt "Hmm, it looks like you entered an invalid interest rate."
@@ -41,13 +41,13 @@ loop do
 
   loan_years = ''
   loop do
-    prompt "Lastly, enter the loan duration in years:"
-    loan_years = gets.chomp.to_i
+    prompt "Enter the loan term in years:"
+    loan_years = gets.chomp.delete(',').to_f
 
-    if valid_number?(loan_years)
+    if valid_number?(loan_years) && loan_years <= 100
       break
     else
-      prompt "Hmmm, that doesn't appear to be a valid number."
+      prompt "Hmmm, that doesn't appear to be a valid number loan term."
     end
   end
 
