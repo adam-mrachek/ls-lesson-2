@@ -1,4 +1,10 @@
-VALID_CHOICES = %w(rock paper scissors spock lizard)
+VALID_CHOICES = {
+  'r' => 'rock',
+  'p' => 'paper',
+  's' => 'scissors',
+  'sp' => 'spock',
+  'l' => 'lizard'
+}
 
 def prompt(message)
   puts ">>> #{message}"
@@ -25,17 +31,21 @@ end
 loop do
   choice = ''
   loop do
-    prompt "Choose one: #{VALID_CHOICES.join(', ')}"
-    choice = gets.chomp
+    prompt "Choose one: #{VALID_CHOICES.values.join(', ')}"
+    prompt "Or choose: #{VALID_CHOICES.keys.join(', ')} for a quicker game."
+    choice = gets.chomp.downcase
 
-    if VALID_CHOICES.include?(choice)
+    if VALID_CHOICES.keys.include?(choice)
+      choice = VALID_CHOICES[choice]
+      break
+    elsif VALID_CHOICES.values.include?(choice)
       break
     else
-      prompt "That's not a valide choice."
+      prompt "That's not a valid choice."
     end
   end
 
-  computer_choice = VALID_CHOICES.sample
+  computer_choice = VALID_CHOICES.values.sample
 
   puts "You chose: #{choice}; Computer chose: #{computer_choice}"
 
