@@ -14,6 +14,8 @@ WINNING_COMBOS = {
   lizard: %w(spock paper)
 }
 
+WINNING_SCORE = 5
+
 def prompt(message)
   puts ">>> #{message}"
 end
@@ -38,6 +40,8 @@ loop do
     computer: 0,
     ties: 0
   }
+
+  system('cls') || system('clear')
 
   puts ""
   puts "--> Let's play Rock, Paper, Scissors, Spock, Lizard! <--".center(60)
@@ -64,6 +68,8 @@ loop do
 
     computer_choice = VALID_CHOICES.values.sample
 
+    system('cls') || system('clear')
+
     puts "You chose: #{choice.upcase};"\
          " Computer chose: #{computer_choice.upcase}"
 
@@ -86,15 +92,16 @@ loop do
 
     puts "..."
 
-    if score[:player] == 5
+    if score[:player] == WINNING_SCORE
       puts "***** YOU WON THE GAME! *****"
       break
-    elsif score[:computer] == 5
+    elsif score[:computer] == WINNING_SCORE
       puts "***** Sorry, the computer won the game. *****"
       break
     end
   end
 
+  puts ''
   prompt "Do you want to play again? (y/n)"
   answer = gets.chomp
   break unless answer.downcase.start_with?('y')
