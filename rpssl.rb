@@ -34,6 +34,19 @@ def display_results(player, computer)
   end
 end
 
+def play_again?
+  loop do
+    answer = gets.chomp.downcase
+    if answer == 'y'
+      break true
+    elsif answer == 'n'
+      break false
+    else
+      prompt "Please choose either 'y' or 'n'."
+    end
+  end
+end
+
 loop do
   score = {
     player: 0,
@@ -103,8 +116,7 @@ loop do
 
   puts ''
   prompt "Do you want to play again? (y/n)"
-  answer = gets.chomp
-  break unless answer.downcase.start_with?('y')
+  break unless play_again?
 end
 
 prompt "Thank you for playing!"
